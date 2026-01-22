@@ -1,9 +1,10 @@
 import type { EventsResponse, NightRaidEvent } from '../types/events';
 
-// Use relative path in dev (proxied by Vite), absolute in production
-const API_BASE_URL = import.meta.env.DEV
-  ? '/api/arc-raiders'
-  : 'https://metaforge.app/api/arc-raiders';
+// In dev: Vite proxy to Metaforge directly
+// In prod: Vercel serverless function at /api/events-schedule
+const EVENTS_ENDPOINT = import.meta.env.DEV
+  ? '/api/arc-raiders/events-schedule'
+  : '/api/events-schedule';
 
 // Generate mock Night Raid events for Stella Montis as fallback
 // Schedule: Every 4 hours at 02:00, 06:00, 10:00, 14:00, 18:00, 22:00 UTC (1 hour each)
@@ -43,7 +44,7 @@ function generateMockEvents(): NightRaidEvent[] {
 
 export async function fetchEventsSchedule(): Promise<EventsResponse> {
   try {
-    const response = await fetch(`${API_BASE_URL}/events-schedule`);
+    const response = await fetch(EVENTS_ENDPOINT);
 
     if (!response.ok) {
       throw new Error(`Failed to fetch events: ${response.status}`);
