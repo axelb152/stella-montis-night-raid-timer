@@ -1,6 +1,15 @@
 import type { VercelRequest, VercelResponse } from '@vercel/node';
+import * as Sentry from '@sentry/node';
 
 const METAFORGE_API_URL = 'https://metaforge.app/api/arc-raiders/events-schedule';
+
+if (process.env.SENTRY_DSN) {
+  Sentry.init({
+    dsn: process.env.SENTRY_DSN,
+    environment: process.env.VERCEL_ENV || 'development',
+    tracesSampleRate: 1.0,
+  });
+}
 
 export default async function handler(req: VercelRequest, res: VercelResponse) {
   if (req.method !== 'GET') {
@@ -23,6 +32,7 @@ export default async function handler(req: VercelRequest, res: VercelResponse) {
 
     return res.status(200).json(data);
   } catch (error) {
+    Sentry.captureException(error);
     console.error('Failed to fetch from Metaforge:', error);
     return res.status(500).json({ error: 'Failed to fetch events' });
   }

@@ -12,6 +12,8 @@
     "test:watch": "vitest"
   },
   "dependencies": {
+    "@sentry/node": "^10.36.0",
+    "@sentry/vue": "^10.36.0",
     "vue": "^3.3.0"
   },
   "devDependencies": {
