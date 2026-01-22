@@ -1,0 +1,117 @@
+@tailwind base;
+@tailwind components;
+@tailwind utilities;
+
+/* Arc Raiders Theme - Dark post-apocalyptic with retro-futuristic accents */
+
+@layer base {
+  :root {
+    --background: 0 0% 6%;
+    --foreground: 38 30% 85%;
+
+    --card: 0 0% 10%;
+    --card-foreground: 38 30% 85%;
+
+    --popover: 0 0% 10%;
+    --popover-foreground: 38 30% 85%;
+
+    --primary: 38 30% 85%;
+    --primary-foreground: 0 0% 6%;
+
+    --secondary: 0 0% 14%;
+    --secondary-foreground: 38 30% 85%;
+
+    --muted: 0 0% 14%;
+    --muted-foreground: 38 20% 60%;
+
+    --accent: 180 70% 50%;
+    --accent-foreground: 0 0% 6%;
+
+    --destructive: 0 84.2% 60.2%;
+    --destructive-foreground: 210 40% 98%;
+
+    --border: 0 0% 20%;
+    --input: 0 0% 20%;
+    --ring: 180 70% 50%;
+
+    /* Arc Raiders specific colors */
+    --arc-cream: 38 30% 85%;
+    --arc-cyan: 180 70% 50%;
+    --arc-yellow: 45 100% 60%;
+    --arc-orange: 25 100% 55%;
+    --arc-red: 0 85% 55%;
+    --arc-dark: 0 0% 6%;
+    --arc-charcoal: 0 0% 10%;
+    --arc-glow: 180 70% 50%;
+  }
+}
+
+@layer base {
+  * {
+    @apply border-border;
+  }
+
+  body {
+    @apply bg-background text-foreground;
+  }
+}
+
+/* Arc Raiders Rainbow Gradient */
+.arc-gradient {
+  background: linear-gradient(
+    180deg,
+    hsl(180, 70%, 50%) 0%,
+    hsl(45, 100%, 60%) 33%,
+    hsl(25, 100%, 55%) 66%,
+    hsl(0, 85%, 55%) 100%
+  );
+}
+
+/* Glow effects */
+.arc-glow {
+  text-shadow: 0 0 20px hsl(180, 70%, 50%, 0.5),
+               0 0 40px hsl(180, 70%, 50%, 0.3);
+}
+
+.arc-glow-red {
+  text-shadow: 0 0 20px hsl(0, 85%, 55%, 0.5),
+               0 0 40px hsl(0, 85%, 55%, 0.3);
+}
+
+/* Pulse animation */
+@keyframes pulse-glow {
+  0%, 100% {
+    opacity: 1;
+    text-shadow: 0 0 20px hsl(0, 85%, 55%, 0.8),
+                 0 0 40px hsl(0, 85%, 55%, 0.5),
+                 0 0 60px hsl(0, 85%, 55%, 0.3);
+  }
+  50% {
+    opacity: 0.9;
+    text-shadow: 0 0 30px hsl(0, 85%, 55%, 1),
+                 0 0 60px hsl(0, 85%, 55%, 0.7),
+                 0 0 80px hsl(0, 85%, 55%, 0.5);
+  }
+}
+
+.animate-pulse-glow {
+  animation: pulse-glow 2s ease-in-out infinite;
+}
+
+/* Scanline effect for CRT feel */
+.scanlines::after {
+  content: '';
+  position: absolute;
+  top: 0;
+  left: 0;
+  right: 0;
+  bottom: 0;
+  background: repeating-linear-gradient(
+    0deg,
+    transparent,
+    transparent 2px,
+    rgba(0, 0, 0, 0.1) 2px,
+    rgba(0, 0, 0, 0.1) 4px
+  );
+  pointer-events: none;
+}
