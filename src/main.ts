@@ -7,9 +7,14 @@ const app = createApp(App)
 
 const sentryDsn = import.meta.env.VITE_SENTRY_DSN
 if (sentryDsn) {
-  const tracesSampleRate = import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE
-    ? parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE)
-    : 0.1
+  let tracesSampleRate = 0.1 // Default: 10%
+  
+  if (import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE) {
+    const parsed = parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE)
+    if (!isNaN(parsed) && parsed >= 0 && parsed <= 1) {
+      tracesSampleRate = parsed
+    }
+  }
   
   Sentry.init({
     app,
