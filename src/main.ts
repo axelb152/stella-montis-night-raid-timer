@@ -9,12 +9,13 @@ const sentryDsn = import.meta.env.VITE_SENTRY_DSN
 if (sentryDsn) {
   let tracesSampleRate = 0.1 // Default: 10%
   
-  if (import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE) {
-    const parsed = parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE)
+  const tracesSampleRateEnv = import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE
+  if (tracesSampleRateEnv) {
+    const parsed = parseFloat(tracesSampleRateEnv)
     if (Number.isFinite(parsed) && parsed >= 0 && parsed <= 1) {
       tracesSampleRate = parsed
     } else {
-      console.warn(`Invalid VITE_SENTRY_TRACES_SAMPLE_RATE value: ${import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE}. Using default: ${tracesSampleRate}`)
+      console.warn(`Invalid VITE_SENTRY_TRACES_SAMPLE_RATE value: ${tracesSampleRateEnv}. Using default: ${tracesSampleRate}`)
     }
   }
   
