@@ -11,8 +11,10 @@ if (sentryDsn) {
   
   if (import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE) {
     const parsed = parseFloat(import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE)
-    if (!isNaN(parsed) && parsed >= 0 && parsed <= 1) {
+    if (Number.isFinite(parsed) && parsed >= 0 && parsed <= 1) {
       tracesSampleRate = parsed
+    } else {
+      console.warn(`Invalid VITE_SENTRY_TRACES_SAMPLE_RATE value: ${import.meta.env.VITE_SENTRY_TRACES_SAMPLE_RATE}. Using default: ${tracesSampleRate}`)
     }
   }
   
