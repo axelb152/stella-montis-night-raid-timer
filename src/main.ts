@@ -11,7 +11,7 @@ if (sentryDsn) {
     app,
     dsn: sentryDsn,
     environment: import.meta.env.MODE,
-    tracesSampleRate: 1.0,
+    tracesSampleRate: 0.25,
   })
 }
 
