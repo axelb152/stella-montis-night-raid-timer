@@ -1,4 +1,4 @@
-import type { VercelRequest, VercelResponse } from '@vercel/node';
+import type { VercelRequest, VercelResponse } from './types/vercel';
 import * as Sentry from '@sentry/node';
 
 const METAFORGE_API_URL = 'https://metaforge.app/api/arc-raiders/events-schedule';
